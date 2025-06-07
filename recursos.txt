@@ -1,1 +1,2 @@
-Lapiz;Negro;no
+Pelota;Tenis;false
+paleta;123;false

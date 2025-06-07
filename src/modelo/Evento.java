@@ -30,6 +30,18 @@ public class Evento {
         this.recursosAsignados = new ArrayList<>();
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
     public String getNombre() { return nombre; }
     public LocalDate getFecha() { return fecha; }
     public String getLugar() { return lugar; }

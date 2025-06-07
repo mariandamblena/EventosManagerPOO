@@ -94,6 +94,7 @@ public class RecursoControlador {
                 evento.asignarRecurso(r);
                 r.asignar();
                 RepositorioRecursos.guardarRecursos(recursos);
+                RepositorioRecursosEvento.guardar(List.of(evento));// ← persistir relación
                 cargarRecursos();
             }
         }
@@ -104,7 +105,6 @@ public class RecursoControlador {
         if (index >= 0) {
             Recurso seleccionado = recursos.get(index);
 
-            // Buscar en la lista de recursos asignados al evento por nombre y tipo
             Recurso asignado = evento.getRecursosAsignados().stream()
                     .filter(r -> r.getNombre().equals(seleccionado.getNombre()) &&
                             r.getTipo().equals(seleccionado.getTipo()))
@@ -112,8 +112,9 @@ public class RecursoControlador {
 
             if (asignado != null) {
                 evento.getRecursosAsignados().remove(asignado);
-                seleccionado.liberar(); // libera el objeto de la lista global
+                seleccionado.liberar();
                 RepositorioRecursos.guardarRecursos(recursos);
+                RepositorioRecursosEvento.guardar(List.of(evento));// ← persistir relación
                 cargarRecursos();
             }
         }

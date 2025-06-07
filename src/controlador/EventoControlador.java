@@ -1,9 +1,10 @@
+// controlador/EventoControlador.java
 package controlador;
 
 import modelo.*;
 import vista.*;
 
-import javax.swing.*; //
+import javax.swing.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,14 +13,20 @@ import java.util.List;
 
 public class EventoControlador {
     private List<Evento> eventos;
+    private List<Recurso> recursos;
     private VentanaPrincipal vista;
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public EventoControlador() {
+        recursos = RepositorioRecursos.cargarRecursos();
         eventos = RepositorioEventos.cargarEventos();
         vista = new VentanaPrincipal();
         cargarEventosEnVista();
         verificarEventosProximos();
+        RepositorioAsistentes.cargar(eventos);
+        RepositorioRecursosEvento.cargar(eventos, recursos);
+
+
 
         vista.btnAgregarEvento.addActionListener(e -> mostrarFormularioNuevoEvento());
         vista.btnEditarEvento.addActionListener(e -> editarEventoSeleccionado());
@@ -119,7 +126,7 @@ public class EventoControlador {
         int index = vista.listaEventos.getSelectedIndex();
         if (index >= 0) {
             int confirm = JOptionPane.showConfirmDialog(vista,
-                    "Estás seguro de eliminar este evento?",
+                    "¿Estás seguro de eliminar este evento?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
@@ -129,7 +136,7 @@ public class EventoControlador {
                     r.liberar();
                 }
 
-                RepositorioRecursos.guardarRecursos(RepositorioRecursos.cargarRecursos());
+                RepositorioRecursos.guardarRecursos(recursos);
 
                 eventos.remove(index);
                 RepositorioEventos.guardarEventos(eventos);

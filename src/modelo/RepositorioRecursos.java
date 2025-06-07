@@ -1,34 +1,42 @@
 package modelo;
 
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-public class RepositorioRecursos extends RepositorioBase<Recurso> {
+public class RepositorioRecursos {
+    private static final String ARCHIVO = "recursos.txt";
 
-    public RepositorioRecursos() {
-        super("recursos.txt");
-    }
-
-    @Override
-    protected Recurso parsearLinea(String linea) {
-        String[] datos = linea.split(";");
-        if (datos.length == 3) {
-            Recurso r = new Recurso(datos[0], datos[1]);
-            if ("no".equalsIgnoreCase(datos[2])) r.asignar();
-            return r;
+    public static void guardarRecursos(List<Recurso> recursos) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(ARCHIVO))) {
+            for (Recurso r : recursos) {
+                pw.println(r.getNombre() + ";" + r.getTipo() + ";" + r.estaDisponible());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    protected String formatearLinea(Recurso r) {
-        return r.getNombre() + ";" + r.getTipo() + ";" + (r.estaDisponible() ? "si" : "no");
     }
 
     public static List<Recurso> cargarRecursos() {
-        return new RepositorioRecursos().cargar();
-    }
+        List<Recurso> recursos = new ArrayList<>();
+        File archivo = new File(ARCHIVO);
+        if (!archivo.exists()) return recursos;
 
-    public static void guardarRecursos(List<Recurso> recursos) {
-        new RepositorioRecursos().guardar(recursos);
+        try (Scanner sc = new Scanner(archivo)) {
+            while (sc.hasNextLine()) {
+                String[] partes = sc.nextLine().split(";");
+                if (partes.length == 3) {
+                    String nombre = partes[0];
+                    String tipo = partes[1];
+                    boolean disponible = Boolean.parseBoolean(partes[2]);
+                    Recurso r = new Recurso(nombre, tipo);
+                    if (!disponible) r.asignar(); // si estaba ocupado
+                    recursos.add(r);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return recursos;
     }
 }

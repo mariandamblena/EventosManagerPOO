@@ -9,6 +9,11 @@ public class Asistente {
         this.email = email;
     }
 
+    public Asistente(String nombre) {
+        this.nombre = nombre;
+        this.email = "";
+    }
+
     public String getNombre() { return nombre; }
     public String getEmail() { return email; }
 

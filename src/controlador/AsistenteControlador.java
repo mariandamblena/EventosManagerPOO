@@ -5,6 +5,7 @@ import vista.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class AsistenteControlador {
     private FormularioAsistentes vista;
@@ -21,6 +22,11 @@ public class AsistenteControlador {
             if (!nombre.isEmpty() && !email.isEmpty()) {
                 Asistente nuevo = new Asistente(nombre, email);
                 evento.agregarAsistente(nuevo);
+
+                // Guardar cambios
+                RepositorioAsistentes.guardar(List.of(evento));
+                RepositorioEventos.guardarEventos(List.of(evento));
+
                 cargarAsistentes();
                 limpiarCampos();
             }
@@ -50,8 +56,12 @@ public class AsistenteControlador {
             String nuevoNombre = vista.campoNombre.getText();
             String nuevoEmail = vista.campoEmail.getText();
             if (!nuevoNombre.isEmpty() && !nuevoEmail.isEmpty()) {
-                Asistente a = evento.getAsistentes().get(index);
                 evento.getAsistentes().set(index, new Asistente(nuevoNombre, nuevoEmail));
+
+                // Guardar cambios
+                RepositorioAsistentes.guardar(List.of(evento));
+                RepositorioEventos.guardarEventos(List.of(evento));
+
                 cargarAsistentes();
                 limpiarCampos();
             }
@@ -62,6 +72,11 @@ public class AsistenteControlador {
         int index = vista.listaAsistentes.getSelectedIndex();
         if (index >= 0) {
             evento.getAsistentes().remove(index);
+
+            // Guardar cambios
+            RepositorioAsistentes.guardar(List.of(evento));
+            RepositorioEventos.guardarEventos(List.of(evento));
+
             cargarAsistentes();
             limpiarCampos();
         }
