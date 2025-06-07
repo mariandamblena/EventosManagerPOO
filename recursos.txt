@@ -1,2 +1,1 @@
-Pelota;Tenis;false
-paleta;123;false
+Paddle;pelotita;true

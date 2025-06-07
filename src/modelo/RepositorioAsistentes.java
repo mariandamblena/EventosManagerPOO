@@ -10,7 +10,8 @@ public class RepositorioAsistentes {
         try (PrintWriter pw = new PrintWriter(new FileWriter(ARCHIVO))) {
             for (Evento e : eventos) {
                 for (Asistente a : e.getAsistentes()) {
-                    pw.println(e.getNombre() + ";" + a.getNombre());
+                    // Guardamos nombre y email separados por ";"
+                    pw.println(e.getNombre() + ";" + a.getNombre() + ";" + a.getEmail());
                 }
             }
         } catch (IOException e) {
@@ -25,12 +26,13 @@ public class RepositorioAsistentes {
         try (Scanner scanner = new Scanner(archivo)) {
             while (scanner.hasNextLine()) {
                 String[] partes = scanner.nextLine().split(";");
-                if (partes.length == 2) {
+                if (partes.length == 3) {
                     String eventoNombre = partes[0];
                     String asistenteNombre = partes[1];
+                    String asistenteEmail = partes[2];
                     for (Evento e : eventos) {
                         if (e.getNombre().equals(eventoNombre)) {
-                            e.agregarAsistente(new Asistente(asistenteNombre, ""));
+                            e.agregarAsistente(new Asistente(asistenteNombre, asistenteEmail));
                         }
                     }
                 }
