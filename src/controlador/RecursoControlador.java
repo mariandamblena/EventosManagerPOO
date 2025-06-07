@@ -30,8 +30,18 @@ public class RecursoControlador {
     private void cargarRecursos() {
         vista.modeloRecursos.clear();
         for (Recurso r : recursos) {
-            String asignado = evento.getRecursosAsignados().contains(r) ? " (Asignado)" : "";
-            String estado = r.estaDisponible() ? "Disponible" : "Ocupado";
+            String asignado = "";
+            if (evento.getRecursosAsignados().contains(r)) {
+                asignado = " (Asignado)";
+            }
+
+            String estado;
+            if (r.estaDisponible()) {
+                estado = "Disponible";
+            } else {
+                estado = "Ocupado";
+            }
+
             vista.modeloRecursos.addElement(r.getNombre() + " - " + r.getTipo() + " - " + estado + asignado);
         }
     }
