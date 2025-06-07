@@ -47,7 +47,7 @@ public class VistaCalendario extends JFrame {
 
     public void limpiarDias() {
         Component[] componentes = panelDias.getComponents();
-        for (int i = 7; i < componentes.length; i++) { // saltar encabezados
+        for (int i = 7; i < componentes.length; i++) {
             panelDias.remove(componentes[i]);
         }
     }
