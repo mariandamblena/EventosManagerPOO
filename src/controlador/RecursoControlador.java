@@ -94,7 +94,7 @@ public class RecursoControlador {
                 evento.asignarRecurso(r);
                 r.asignar();
                 RepositorioRecursos.guardarRecursos(recursos);
-                RepositorioRecursosEvento.guardar(List.of(evento));// ← persistir relación
+                RepositorioRecursosEvento.guardar(List.of(evento));//  persistir relación
                 cargarRecursos();
             }
         }
@@ -114,7 +114,7 @@ public class RecursoControlador {
                 evento.getRecursosAsignados().remove(asignado);
                 seleccionado.liberar();
                 RepositorioRecursos.guardarRecursos(recursos);
-                RepositorioRecursosEvento.guardar(List.of(evento));// ← persistir relación
+                RepositorioRecursosEvento.guardar(List.of(evento));//  persistir relación
                 cargarRecursos();
             }
         }

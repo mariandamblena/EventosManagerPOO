@@ -1,1 +1,3 @@
-Paddle;pelotita;true
+Paddle;pelotita;false
+Pelota;Paddle;false
+Pelota;Futbol;false

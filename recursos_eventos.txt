@@ -1,0 +1,3 @@
+Estadio Berna;Pelota;Futbol
+Estadio Berna;Pelota;Paddle
+Estadio Berna;Paddle;pelotita
