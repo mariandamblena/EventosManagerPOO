@@ -85,5 +85,5 @@ Los datos se guardan en archivos `.txt` ubicados en la raíz del proyecto:
 
 ## 👨‍🎓 Créditos
 
-Trabajo práctico realizado por **[Tu nombre]** para la materia **Programación Orientada a Objetos - UADE**.  
+Trabajo práctico realizado por **Mariano Dambolena** para la materia **Programación Orientada a Objetos - UADE**.  
 Año: 2025.
